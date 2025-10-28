@@ -111,9 +111,7 @@ def main():
         if cost == 'unmailable':
             print('unmailable')
         else:
-            cost = f'{cost:.2f}'
-            cost = cost.lstrip("0")
+            cost = f'{cost:.2f}'                              #this prints 2 decimal places in the output
+            cost = cost.lstrip("0")                           #lstrip removes the 0 before the decimal in the output cost
             print(cost)
 main()    
-
-
