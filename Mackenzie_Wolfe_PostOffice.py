@@ -115,4 +115,5 @@ def main():
             cost = cost.lstrip("0")
             print(cost)
 main()    
-main()    
+
+
