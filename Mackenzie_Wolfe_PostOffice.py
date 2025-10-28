@@ -1,3 +1,10 @@
+'''
+Author: Mackenzie Wolfe
+Due Date: 10/23/2025
+Bugs: None
+Sources: W3Schools
+'''
+
 def get_type(length, height, thickness):
     '''
     Description: Takes the length, height, and thickness and determinds the type of mailing shipping
@@ -16,16 +23,16 @@ def get_type(length, height, thickness):
         return 'envelope'
     elif 6.125 <= length <= 24 and 11 <= height <= 18 and .25 <= thickness <= .5:
         return 'large envelope'
-    elif length > 24 and height > 18 and thickness > .5 and length + 2*(height + thickness) <= 84:
+    elif length > 24 or height > 18 or thickness > .5 and length + 2*(height + thickness) <= 84:
         return 'package'
-    elif length > 24 and height > 18 and thickness > .5 and 84 <= length + 2*(height + thickness) <= 130:
+    elif length > 24 or height > 18 or thickness > .5 and 84 <= length + 2*(height + thickness) <= 130:
         return 'large package'
     else:
         return 'unmailable'
 
 def get_zone(zipcode):
     '''
-    Description: This takes the zipcode of the start and end place and determinds the start and end zone
+    Description: This takes the zipcode from the start and end place and determinds the start and end zone
     Args:
         zipcode(int): zipcode of start and end place
     Returns:
@@ -65,9 +72,9 @@ def get_distance(startzip, endzip):
 
 def get_cost(post_type, distance):
     '''
-    Descrption: This determinds the cost depending on postcard type
+    Descrption: This determinds the cost depending on postcard type and distance
     Args:
-        post_type(str): the type of postcard
+        post_type(str): The type of postcard
         distance(int): The number of zones it goes through
     Returns:
         returns the cost 
@@ -107,4 +114,5 @@ def main():
             cost = f'{cost:.2f}'
             cost = cost.lstrip("0")
             print(cost)
+main()    
 main()    
