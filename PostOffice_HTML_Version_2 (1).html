@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Dimensions</title>
+</head>
+<body>
+    <form id="boxForm">
+        <label for="length">Length:</label>
+        <input type="number" id="length" name="length" step="0.01"><br><br>
+
+        <label for="height">Height:</label>
+        <input type="number" id="height" name="height" step="0.01"><br><br>
+        
+        <label for="thickness">Thickness:</label>
+        <input type="number" id="thickness" name="thickness" step="0.01"><br><br>
+        
+        <label for="zipFrom">Zip From:</label>
+        <input type="number" id="zipFrom" name="zipFrom" step="1"><br><br>
+        
+        <label for="zipTo">Zip To:</label>
+        <input type="number" id="zipTo" name="zipTo" step="1"><br><br>
+        
+        <button type="button" onclick="main()">Submit</button>
+    </form>
+
+    <script>
+        /**
+         * Main function to read in the data from the form
+         */
+        function main() {
+            // Read in the data from the form
+            const length = parseFloat(document.getElementById('length').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const thickness = parseFloat(document.getElementById('thickness').value);
+            const zipFrom = parseInt(document.getElementById('zipFrom').value);
+            const zipTo = parseInt(document.getElementById('zipTo').value);
+
+            var postType = getType(length, height, thickness);
+            var distance = getDistance(zipFrom, zipTo);
+            var cost = getCost(postType, distance);
+
+            if (cost == 'unmailable'){
+                alert('unmailable');
+            }
+            alert(cost.toFixed(2).toString().replace(/^0+/, ''));
+
+        }
+
+        function getType(length, height, thickness)  {
+            if (3.5 <= length && length <= 4.25 && 3.5 <= height && height <= 6 && .007 <= thickness && thickness <= .016){
+                return 'regular post card';
+            }else if (4.25 <= length && length <= 6 && 6 <= height && height <= 11.5 && .007 <= thickness && thickness <= .015){
+                return 'large post card';
+            }else if (3.5 <= length && length <= 6.125 && 5 <= height && height <= 11.5 && .016 <= thickness && thickness <= .25){
+                return 'envelope';
+            }else if (6.125 <= length && length <= 24 && 11 <= height && height <= 18 && .25 <= thickness && thickness <= .5){
+                return 'large envelope';
+            }else if (length > 24 || height > 18 || thickness > .5 && length + 2*(height + thickness) <= 84){
+                return 'package';
+            }else if (length > 24 || height > 18 || thickness > .5 && 84 <= length + 2*(height + thickness) && length + 2*(height + thickness) <= 130){
+                return 'large package';
+            }
+        }
+
+        function getZone(zipcode) {
+            if (1 <= zipcode && zipcode <= 6999){
+                return 1;
+            }else if (7000 <= zipcode && zipcode <= 19999){
+                return 2;
+            }else if (20000 <= zipcode && zipcode <= 35999){
+                return 3;
+            }else if (36000 <= zipcode && zipcode <= 62999){
+                return 4;
+            }else if (63000 <= zipcode && zipcode <= 84999){
+                return 5;
+            }else if (85000 <= zipcode && zipcode <= 99999){
+                return 6;
+            }else {
+                return -1;
+            }
+        }
+
+        function getDistance(zipFrom, zipTo) {
+            startzone = getZone(zipFrom);
+            endzone = getZone(zipTo);
+
+            if (startzone == -1 || endzone == -1) {
+                return 'unmailable';
+            }
+            return Math.abs(startzone-endzone);
+        }
+
+
+        function getCost(post_type, distance) {
+            if (post_type == 'unmailable' || distance == 'unmailable'){
+                return 'unmailable';
+            }else if (post_type == 'regular post card'){
+                return .2 + .03*distance;
+            }else if (post_type == 'large post card'){
+                return .37 + .03*distance;
+            }else if (post_type == 'envelope'){
+                return .37 + .04*distance;
+            }else if (post_type == 'large envelope'){
+                return .6 + .05*distance;
+            }else if (post_type == 'package'){
+                return 2.95 + .25*distance;
+            }else if (post_type == 'large package'){
+                return 3.95 + .35*distance;
+            }
+        }
+    </script>
+</body>
+</html>
