@@ -4,25 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Box Dimensions</title>
-</head>
-<body>
-    <form id="boxForm">
-        <label for="length">Length:</label>
-        <input type="number" id="length" name="length" step="0.01"><br><br>
+<style>
 
-        <label for="height">Height:</label>
-        <input type="number" id="height" name="height" step="0.01"><br><br>
+    .none {cursor: none;}
+</style>
+</head>
+<body style='background-color:rgb(241, 152, 219);'>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5r0trP_2-n6TDpv627HxGnSZgAinRSVMCos79Yh30iutjTMViHBnOlvTfQzBk4FvuSO8&usqp=CAU" alt="HTML5 Icon" width="128" height="128">
+<img src="https://thumbs.dreamstime.com/b/mailman-12265846.jpg" alt="HTML5 Icon" width="128" height="128">
+<p class="none">Put mouse on me and it will disapear!!</p>
+
+    <form id="boxForm">
+        <label style='background-color:rgb(79, 103, 239); border: 3px solid black;' for="length">Length:</label>
+        <input style='background-color:rgb(79, 103, 239); border: 3px solid black;' type="number" id="length" name="length" step="0.01"><br><br>
+
+        <label style='background-color:rgb(149, 28, 147); border: 3px solid black;' for="height">Height:</label>
+        <input style='background-color:rgb(149, 28, 147); border: 3px solid black;' type="number" id="height" name="height" step="0.01"><br><br>
         
-        <label for="thickness">Thickness:</label>
-        <input type="number" id="thickness" name="thickness" step="0.01"><br><br>
+        <label style='background-color:rgb(219, 210, 33); border: 3px solid black;' for="thickness">Thickness:</label>
+        <input style='background-color:rgb(219, 210, 33); border: 3px solid black;' type="number" id="thickness" name="thickness" step="0.01"><br><br>
         
-        <label for="zipFrom">Zip From:</label>
-        <input type="number" id="zipFrom" name="zipFrom" step="1"><br><br>
+        <label style='background-color:rgb(222, 109, 134); border: 3px solid black;' for="zipFrom">Zip From:</label>
+        <input style='background-color:rgb(222, 109, 134); border: 3px solid black;' type="number" id="zipFrom" name="zipFrom" step="1"><br><br>
         
-        <label for="zipTo">Zip To:</label>
-        <input type="number" id="zipTo" name="zipTo" step="1"><br><br>
+        <label style='background-color:rgb(28, 149, 50); border: 3px solid black;' for="zipTo">Zip To:</label>
+        <input style='background-color:rgb(28, 149, 50); border: 3px solid black;' type="number" id="zipTo" name="zipTo" step="1"><br><br>
         
-        <button type="button" onclick="main()">Submit</button>
+        <button style='background-color:rgb(58, 207, 170); border: 3px solid black;' type="button" onclick="main()">ENTER</button>
     </form>
 
     <script>
@@ -30,7 +38,6 @@
          * Main function to read in the data from the form
          */
         function main() {
-            // Read in the data from the form
             const length = parseFloat(document.getElementById('length').value);
             const height = parseFloat(document.getElementById('height').value);
             const thickness = parseFloat(document.getElementById('thickness').value);
@@ -43,11 +50,16 @@
 
             if (cost == 'unmailable'){
                 alert('unmailable');
+            } else {
+                alert(cost.toFixed(2).toString().replace(/^0+/, ''));
             }
-            alert(cost.toFixed(2).toString().replace(/^0+/, ''));
-
         }
-
+        /**
+         * Function to get the postage type
+         * @param {float} length - The length of the mail
+         * @param {float} height - The height of the mail
+         * @param {float} thickness - The thickness of the mail
+         */
         function getType(length, height, thickness)  {
             if (3.5 <= length && length <= 4.25 && 3.5 <= height && height <= 6 && .007 <= thickness && thickness <= .016){
                 return 'regular post card';
@@ -63,7 +75,10 @@
                 return 'large package';
             }
         }
-
+        /**
+         * Function to get zone information
+         * @param {integer} zipcode - The zip code
+         */
         function getZone(zipcode) {
             if (1 <= zipcode && zipcode <= 6999){
                 return 1;
@@ -82,6 +97,11 @@
             }
         }
 
+        /**
+         * Function to get the distance 
+         * @param {integer} zipFrom - initial zipcode
+         * @param {integer} zipTo - final zipcode
+         */
         function getDistance(zipFrom, zipTo) {
             startzone = getZone(zipFrom);
             endzone = getZone(zipTo);
@@ -92,7 +112,10 @@
             return Math.abs(startzone-endzone);
         }
 
-
+        /**
+         * Function to calculate the cost based off the mailing type 
+         * @param {float} distance - the number of zones traveled 
+         */
         function getCost(post_type, distance) {
             if (post_type == 'unmailable' || distance == 'unmailable'){
                 return 'unmailable';
