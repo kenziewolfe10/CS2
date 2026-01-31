@@ -1,8 +1,13 @@
 def display():
+    '''
+    Loads file and displays the first 10 rows
+    args: none
+    returns:
+        return: the first 10 lines of the titanic CSV file
+    '''
+
     try:
         with open('titanic.csv', 'r') as file:
-            #header = file.readline().strip().split(',')  # Read the header row
-            #name_index = header.index('Name')  # Find the index of 'Name' column
             count = 0
             for line in file:
                 row = line.strip().split(',')
@@ -10,12 +15,18 @@ def display():
                 count += 1
                 if count == 10:
                     break
-                #print(row[name_index])
     except FileNotFoundError:
         print("Error: 'titanic.csv' file not found.")
         
 
 def survival_rate():  
+    '''
+    Calculates and prints overall survival rate
+    Args:
+        none
+    returns:
+        prints the total number of people and total survival rate
+    '''
     with open('titanic.csv', 'r', newline = '') as file:
         next(file)
         survived = 0
@@ -31,6 +42,13 @@ def survival_rate():
         print(f'Total:{total}')
 
 def gender_rate():
+    '''
+    Calculates the survival rate for males and females separately
+    Args:
+        none
+    returns:
+        Prints female and male survival rate as a percentage
+    '''
     with open('titanic.csv', 'r', newline = '') as file:
         next(file)
         female = 0
@@ -55,6 +73,13 @@ def gender_rate():
 
 
 def age_survivor():
+    '''
+    Prints information based on age of passengers
+    Args:
+        none
+    returns:
+        Prints average age, average age of survivor and non-survivor
+    '''
     with open('titanic.csv', 'r', newline = '') as file:
         next(file)
         SurvivorAge = []
@@ -76,6 +101,14 @@ def age_survivor():
 
 
 def oldyoung_survivor():
+    '''
+    Gets the oldest and yougest survivor
+    Args:
+        none
+    Returns:
+        The oldest and youngest survivors name and age
+    '''
+
     with open('titanic.csv', 'r', newline = '') as file:
         next(file)
         min_age = 200
@@ -101,6 +134,13 @@ def oldyoung_survivor():
 
 
 def class_survivor():
+    '''
+    Gets the three classes average fair and survival rate
+    Args:
+        none
+    Returns:
+        Prints all three classes survival rates and average fairs
+    '''
     with open('titanic.csv', 'r', newline = '') as file:
         next(file)
         class1 = 0
@@ -142,6 +182,13 @@ def class_survivor():
 
 
 def family_survivor():
+    '''
+    Calculates family size, how many people are in each family size, and the surivival rate of each family size.
+    Args:
+        none
+    Returns:
+        Prints how many people are in each family size and the surival rate of each family size
+    '''
     with open('titanic.csv', 'r', newline = '') as file:
         next(file)
 
@@ -163,9 +210,9 @@ def family_survivor():
                     family_sizes[family_size][1] += 1
             else:
                 if row[1] == "1":
-                    family_sizes[family_size] = [0, 1]
+                    family_sizes[family_size] = [1, 1]
                 else:
-                    family_sizes[family_size] = [0, 0]
+                    family_sizes[family_size] = [1, 0]
 
     family_sizes = dict(sorted(family_sizes.items()))
 
@@ -174,15 +221,9 @@ def family_survivor():
 
 
 
-
-
-
-
-
-
 def main():
     while True:
-        choice = input("Which function would you like to run? \n1. Display the first 20 rows of the titanic file \n2. Get the survival rate and total passengers \n3. Get the survival rate based on gender \n4. Get the survival rate based on age \n5. Get the oldest and younger survivor \n6. Get survival rate based on family size \nEnter 1-6: ")
+        choice = input("Which function would you like to run? \n1. Display the first 20 rows of the titanic file \n2. Get the survival rate and total passengers \n3. Get the survival rate based on gender \n4. Get the survival rate based on age \n5. Get the oldest and younger survivor \n6. Get survival rate based on class \n7. Analyze data based off family size \nEnter 1-7: ")
 
         if choice == '1':
             display()
