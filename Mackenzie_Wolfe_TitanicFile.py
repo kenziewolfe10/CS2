@@ -223,7 +223,7 @@ def family_survivor():
 
 def main():
     while True:
-        choice = input("Which function would you like to run? \n1. Display the first 20 rows of the titanic file \n2. Get the survival rate and total passengers \n3. Get the survival rate based on gender \n4. Get the survival rate based on age \n5. Get the oldest and younger survivor \n6. Get survival rate based on class \n7. Analyze data based off family size \nEnter 1-7: ")
+        choice = input("Which function would you like to run? \n1. Display the first 10 rows of the titanic file \n2. Get the survival rate and total passengers \n3. Get the survival rate based on gender \n4. Get the survival rate based on age \n5. Get the oldest and younger survivor \n6. Get survival rate based on class \n7. Analyze data based off family size \nEnter 1-7: ")
 
         if choice == '1':
             display()
@@ -239,4 +239,5 @@ def main():
             class_survivor()   
         elif choice == '7':
             family_survivor()     
+
 main()
