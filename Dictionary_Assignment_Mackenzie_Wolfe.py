@@ -1,17 +1,32 @@
 import operator
 import csv
 
-def open_csv(word_dictionary, csv_file):
+def open_csv(word_dictionary, csv_file):               
+    '''
+    writes the data into a CSV file
+    args: 
+        word_dictionary(dict): dictionary of all words in script with value next to it
+        csv_file(csv): file name
+    return:
+        puts data in csv file
+    '''
     with open(csv_file, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['Key', 'Value'])
+        writer = csv.writer(file)                                    #writes a new csv file
+        writer.writerow(['Key', 'Value'])                            #makes x the keys and the y the values 
             
-        for key, value in word_dictionary.items():
-            writer.writerow([key, value])
+        for key, value in word_dictionary.items():                  
+            writer.writerow([key, value])                            #importing each key vlaue pair into a line in the csv file
 
     print(f"Dictionary saved to {csv_file}")
 
 def count_words(filename, output):
+    '''
+    creates a dictionary with the words in the play and a value of how many times each word is stated
+    args:
+        filename(string): name of file of txt file
+        output(string): name of csv file 
+    return: each word and how many times it is stated
+    '''
     word_dictionary = {}
     excluded_words = ["and", "or", "i", "but", "the", "of", "a", "to", "that", "is", "my", "it"]    #a list of words that should not be included in the dictionary
 
