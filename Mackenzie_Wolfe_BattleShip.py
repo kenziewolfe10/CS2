@@ -1,5 +1,12 @@
 import random
 def print_board(board):
+     '''
+     makes board layout for all boards
+     Args: 
+        Board(str): takes in board 
+     Returns:
+        prints updated board each round 
+     '''
      print(f'''
     1    2    3    4    5 
  1 {board[0][0]} | {board[0][1]} | {board[0][2]} | {board[0][3]} | {board[0][4]}
@@ -15,6 +22,15 @@ def print_board(board):
      
 
 def place_ships(board, bot_or_player):
+    '''
+    Asks user for spot to place ships and randomly places ships for computer
+    Args:
+        Board(str): takes in board
+        bot_or_player: determinds if you are a player or the computer
+    Returns:
+        board each time you place a ship
+    '''
+
     ships = []
     i = 0
 
@@ -47,7 +63,15 @@ def place_ships(board, bot_or_player):
             print_board(board)
     return ships
 
-def make_shot(display_board, board, bot_or_player, shots):
+def make_shot(display_board, board, bot_or_player, count):
+    '''
+    Asks user to place ships on board and randomly places ships on board for computer
+    Arsgs:
+        display_board(str): board with ships placed
+        board(str): takes in board
+        bot_or_player: determinds if you are a player or the computer
+        shots: list of where you shot(row and col)
+    '''
     shots = []
 
     while True:
@@ -73,19 +97,29 @@ def make_shot(display_board, board, bot_or_player, shots):
         
     if board[row][col] == '🚢':
         display_board[row][col] = '💥'
+        count += 1
     
     else:
         display_board[row][col] = '😢'
     
     shots.append((row, col))
     print_board(display_board)
+    return count
 
 
-def check_winner(shots, ships):
-    for ship in ships:
-        if ship not in shots:
-            return False
-    return True
+def check_winner(count):
+    '''
+    Check if bot or player wins by checking if the ship placemnt is the same as the shot placement
+    args:
+        shots(list)
+        ships(list)
+    returns:
+        boolean: whether ship is in shots or not
+    '''
+    if count == 4:
+        return True
+    else:
+        return False
 
 
 def main():
@@ -94,26 +128,26 @@ def main():
     p_display_board = [['⚓']*5, ['⚓']*5, ['⚓']*5, ['⚓']*5, ['⚓']*5]
     b_display_board = [['⚓']*5, ['⚓']*5, ['⚓']*5, ['⚓']*5, ['⚓']*5]
 
-    p_shots = []
-    b_shots = []
+    p_count = 0
+    b_count = 0
     p_ships = place_ships(p_board, 'p')
     b_ships = place_ships(b_board, 'b')
 
     while True:
         print_board(b_display_board)
-        make_shot(b_display_board, b_board, 'p', p_shots) 
+        p_count = make_shot(b_display_board, b_board, 'p', p_count) 
         print_board(b_display_board)
 
-        if check_winner(p_shots, b_ships):
+        if check_winner(p_count):
             print('Player wins')
-            break
+            exit()
 
         print_board(p_display_board)
-        make_shot(p_display_board, p_board, 'b', b_shots) 
+        b_count = make_shot(p_display_board, p_board, 'b', b_count) 
         print_board(p_display_board)
 
-        if check_winner(b_shots, p_ships):
+        if check_winner(b_count):
             print('Bot wins')
-            break
+            exit()
 
 main()
